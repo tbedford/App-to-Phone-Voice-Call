@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="./node_modules/nexmo-client/dist/nexmoClient.js"></script>
+</head>
+
+<body>
+
+  <form id="call-phone-form">
+    <h1>Call Phone from App</h1>
+    <input type="text" name="phonenumber" value="">
+    <input type="submit" value="Call" />
+  </form>
+
+  <script>
+
+    const USER_JWT = 'hsdjhasjkhdsa';
+
+    class PhoneApp {
+
+      constructor() {
+        this.callPhoneForm = document.getElementById('call-phone-form');
+        this.setupUserEvents();
+        this.createClient();
+      }
+
+    createClient() {
+    console.log("DEBUG: creating client with JWT:  ", USER_JWT);
+        new NexmoClient({ debug: true })
+          .login(USER_JWT)
+          .then(app => {
+            console.log('DEBUG: Logged into app', app);
+            this.app = app;
+
+            app.on("member:call", (member, call) => {
+              this.call = call;
+              console.log("DEBUG: member:call - ", call);
+            })
+
+            app.on("call:status:changed", (call) => {
+              console.log("DEBUG: call:status:changed - ", call.status);
+            })
+          })
+          .catch(this.errorLogger)
+      }
+
+      setupUserEvents() {
+        this.callPhoneForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    console.log("**DEBUG:** about to make call")
+    var number = this.callPhoneForm.children.phonenumber.value
+    console.log("NUMBER: ", number)
+    this.app.callServer(number);
+    console.log("**DEBUG:** call returned")
+        })
+      }
+
+      errorLogger(error) {
+        console.log(error);
+      }
+
+    }
+    new PhoneApp();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+
+
+
+1) Create a Stitch app
+
+> nexmo app:create "client-sdk-tutorial" https://tbedford.ngrok.io/answer https://tbedford.ngrok.io/event --type=rtc --keyfile=private.key
+Application created: 612034d7-76dc-4da0-b7a7-b8a0dcc7ea59
+Credentials written to /Users/abedford/client-sdk-tutorial/.nexmo-app
+Private Key saved to: private.key
+
+2) Create a User
+
+nexmo user:create name="tonyb"
+
+3) Generate a JWT (use gen-jwt.sh)
+
+
+
+
