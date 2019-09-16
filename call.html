@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="./node_modules/nexmo-client/dist/nexmoClient.js"></script>
+</head>
+
+<body>
+
+  <form id="call-phone-form">
+    <h1>Call Phone from App</h1>
+    <input type="text" name="phonenumber" value="">
+    <input type="submit" value="Call" />
+  </form>
+
+  <script>
+
+const USER_JWT = "eyJh...LFqw";
+
+callPhoneForm = document.getElementById("call-phone-form");
+
+function errorLogger(error) {
+  console.log(error);
+}
+
+new NexmoClient({ debug: true })
+  .login(USER_JWT)
+  .then(app => {
+    callPhoneForm.addEventListener("submit", event => {
+      event.preventDefault();
+      let number = callPhoneForm.children.phonenumber.value;
+      app.callServer(number);
+    });
+  })
+  .catch(errorLogger);
+  </script>
+</body>
+
+</html>

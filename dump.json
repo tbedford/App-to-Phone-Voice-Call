@@ -1,0 +1,116 @@
+{
+  "uuid": "CON-50a08911-9055-45bf-9450-966157a093af",
+  "name": "old_chat",
+  "display_name": "Old School Chat Room",
+  "timestamp": { "created": "2019-09-12T10:40:34.107Z" },
+  "sequence_number": 18,
+  "numbers": [],
+  "properties": { "custom_data": {} },
+  "members": [
+    {
+      "member_id": "MEM-df3d1d55-f611-4a3e-bff6-6b3ae9c589e2",
+      "user_id": "USR-3b2170e6-09b6-4dfc-a86e-b0b660168e87",
+      "name": "tonyb",
+      "state": "LEFT",
+      "timestamp": {
+        "joined": "2019-09-12T11:07:03.599Z",
+        "left": "2019-09-12T12:27:46.289Z"
+      },
+      "channel": {
+        "type": "app",
+        "legs": [],
+        "leg_settings": {},
+        "leg_ids": []
+      },
+      "initiator": {
+        "joined": { "isSystem": true },
+        "left": { "isSystem": true }
+      },
+      "media": {
+        "audio_settings": {
+          "enabled": false,
+          "earmuffed": false,
+          "muted": false
+        },
+        "audio": { "enabled": false, "earmuffed": false, "muted": false }
+      }
+    },
+    {
+      "member_id": "MEM-d0accaba-2609-4a51-9ac8-d2c8f0b0fdd5",
+      "user_id": "USR-dccc618a-a3d0-4d9c-b7cc-73aae2758169",
+      "name": "fred",
+      "state": "LEFT",
+      "timestamp": {
+        "joined": "2019-09-12T11:07:04.239Z",
+        "left": "2019-09-12T12:28:50.770Z"
+      },
+      "channel": {
+        "type": "app",
+        "legs": [],
+        "leg_settings": {},
+        "leg_ids": []
+      },
+      "initiator": {
+        "joined": { "isSystem": true },
+        "left": { "isSystem": true }
+      },
+      "media": {
+        "audio_settings": {
+          "enabled": false,
+          "earmuffed": false,
+          "muted": false
+        },
+        "audio": { "enabled": false, "earmuffed": false, "muted": false }
+      }
+    },
+    {
+      "member_id": "MEM-c91352c2-4dd8-432c-b4a7-83ce3c108d62",
+      "user_id": "USR-3b2170e6-09b6-4dfc-a86e-b0b660168e87",
+      "name": "tonyb",
+      "state": "JOINED",
+      "timestamp": { "joined": "2019-09-12T13:51:11.636Z" },
+      "channel": {
+        "type": "app",
+        "legs": [],
+        "leg_settings": {},
+        "leg_ids": []
+      },
+      "initiator": { "joined": { "isSystem": true } },
+      "media": {
+        "audio_settings": {
+          "enabled": false,
+          "earmuffed": false,
+          "muted": false
+        },
+        "audio": { "enabled": false, "earmuffed": false, "muted": false }
+      }
+    },
+    {
+      "member_id": "MEM-82a0473c-a3ac-4351-a4d0-2a4a512e1bb1",
+      "user_id": "USR-dccc618a-a3d0-4d9c-b7cc-73aae2758169",
+      "name": "fred",
+      "state": "JOINED",
+      "timestamp": { "joined": "2019-09-12T13:51:12.276Z" },
+      "channel": {
+        "type": "app",
+        "legs": [],
+        "leg_settings": {},
+        "leg_ids": []
+      },
+      "initiator": { "joined": { "isSystem": true } },
+      "media": {
+        "audio_settings": {
+          "enabled": false,
+          "earmuffed": false,
+          "muted": false
+        },
+        "audio": { "enabled": false, "earmuffed": false, "muted": false }
+      }
+    }
+  ],
+  "_links": {
+    "self": {
+      "href": "https://api.nexmo.com/beta/conversations/CON-50a08911-9055-45bf-9450-966157a093af"
+    }
+  }
+}

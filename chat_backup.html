@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #login,
+        #messages {
+            width: 80%;
+            height: 300px;
+        }
+
+        #messages {
+            display: none;
+        }
+
+        #conversations {
+            display: none
+        }
+    </style>
+    <script src="./node_modules/nexmo-client/dist/nexmoClient.js"></script>
+</head>
+
+<body>
+
+    <form id="login">
+        <h1>Login</h1>
+        <input type="text" name="username" value="">
+        <input type="submit" value="Login" />
+    </form>
+
+    <section id="messages">
+        <h1>Messages</h1>
+        <div id="messageFeed"></div>
+        <textarea id="messageTextarea"></textarea>
+        <br>
+        <button id="send">Send</button>
+    </section>
+
+    <section id="conversations">
+        <h1>Conversations</h1>
+    </section>
+
+    <script>
+        const USER_JWT = 'xcnxn,mcn';
+
+        const YOUR_CONVERSATION_ID = 'CON-50a08911-9055-45bf-9450-966157a093af';
+
+        const SECOND_USER_JWT = '';
+
+
+        class ChatApp {
+
+            constructor() {
+                this.messageTextarea = document.getElementById('messageTextarea')
+                this.messageFeed = document.getElementById('messageFeed')
+                this.sendButton = document.getElementById('send')
+                this.loginForm = document.getElementById('login')
+                this.conversationList = document.getElementById('conversations')
+                this.setupUserEvents()
+            }
+
+            errorLogger(error) {
+                console.log(error)
+            }
+
+            eventLogger(event) {
+                return () => {
+                    console.log("DEBUG: '%s' event", event)
+                }
+            }
+
+            authenticate(username) {
+                console.log('DEBUG: authenticating');
+                return username.toLowerCase() === "tonyb" ? USER_JWT : SECOND_USER_JWT
+            }
+
+            setupConversationEvents(conversation) {
+                console.log('DEBUG: setupConversationEvents');
+                this.conversation = conversation
+                console.log('DEBUG: conversation name', conversation.name);
+                this.conversationList.style.display = 'none'
+                document.getElementById("messages").style.display = "block"
+                console.log('*** Conversation Retrieved: ', conversation.display_name)
+                console.log('*** Conversation Member: ', conversation.me)
+
+                // Text event
+                conversation.on('text', (sender, message) => {
+                    console.log('*** Message received', sender, message)
+                    const date = new Date(Date.parse(message.timestamp))
+                    const text = `${sender.user.name} @ ${date}: <b>${message.body.text}</b><br>`
+                    this.messageFeed.innerHTML = text + this.messageFeed.innerHTML
+                })
+
+                // Member joined
+                conversation.on("member:joined", (member, event) => {
+                    console.log('Member joined event handler');
+                    const date = new Date(Date.parse(event.timestamp))
+                    console.log(`*** ${member.user.name} joined the conversation`)
+                    const text = `${member.user.name} @ ${date}: <b>joined the conversation</b><br>`
+                    this.messageFeed.innerHTML = text + this.messageFeed.innerHTML
+                })
+            }
+
+
+            updateConversationsList(conversations) {
+                console.log('*** DEBUG: ***  conversations: ', conversations.items);
+
+                let conversationsElement = document.createElement("ul")
+        
+                conversations.items.forEach(conversation => {
+                    console.log('Convo name:', conversation.name)
+                    console.log('Convo id:', conversation.id)
+                    console.log('Convo display_name:', conversation.display_name)
+                    let conversationElement = document.createElement("li")
+                    conversationElement.textContent = conversation.display_name
+                    conversationElement.addEventListener("click", () => this.setupConversationEvents(conversation))
+                    conversationsElement.appendChild(conversationElement)
+                    conversation.members.forEach(member => {console.log('Member id:', member.id)});
+                });
+        
+                if (!conversationsElement.childNodes.length) {
+                    conversationsElement.textContent = "You are not a member of any conversations"
+                }
+
+                this.conversationList.appendChild(conversationsElement)
+                this.conversationList.style.display = 'block'
+                this.loginForm.style.display = 'none'
+            }
+
+
+        
+            listConversations(userToken) {
+                new NexmoClient({
+                    debug: true
+                })
+                    .login(userToken)
+                    .then(app => {
+                         console.log('*** Logged into app', app)
+        
+                         app.on("member:invited", (member, event) => {
+                            console.log('*** DEBUG *** member:invited event ')
+        
+                            //identify the sender and type of conversation.
+                            if (event.body.cname.indexOf("CALL") != 0 && event.invited_by) {
+                                console.log("*** Invitation received:", event);
+                                //accept an invitation.
+                                app.getConversation(event.cid || event.body.cname)
+                                    .then((conversation) => {
+                                        this.conversation = conversation
+                                        // get the conversation
+                                        console.log("*** DEBUGGER ***", conversation)
+                                        conversation.join().then(() => {
+                                            var conversationDictionary = {}
+                                            conversationDictionary[this.conversation.id] = this.conversation
+                                            this.updateConversationsList(conversationDictionary)
+                                        }).catch(this.errorLogger)
+                                    })
+                                    .catch(this.errorLogger)
+                            }
+                         })
+
+                        return app.getConversations()
+                    })
+                    .then((conversations) => {
+                        console.log('*** Retrieved conversations: --> ', conversations)
+                        this.updateConversationsList(conversations)
+                    })
+                    .catch(this.errorLogger)
+            }
+
+                                                                    
+           // setupUserEvents()
+            setupUserEvents() {
+                this.sendButton.addEventListener('click', () => {
+                    this.conversation.sendText(this.messageTextarea.value).then(() => {
+                        this.eventLogger('text')()
+                        this.messageTextarea.value = ''
+                    }).catch(this.errorLogger)
+                })
+
+                this.loginForm.addEventListener('submit', (event) => {
+                    event.preventDefault()
+                    const userToken = this.authenticate(this.loginForm.children.username.value)
+                    if (userToken) {
+                        this.listConversations(userToken)
+                    }
+                })
+            }
+        }
+        new ChatApp()
+    </script>
+</body>
+
+</html>

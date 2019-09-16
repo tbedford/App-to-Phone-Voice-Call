@@ -1,0 +1,7 @@
+curl -X "POST" "https://api.nexmo.com/beta/conversations" \
+     -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NjgyODQ3OTcsImp0aSI6ImFhMmMyNzIwLWQ1NDktMTFlOS04NzNlLWNkNWExZTRlMzhmMCIsInN1YiI6InRvbnliIiwiZXhwIjoxNTY4MzcxMTk3LCJhY2wiOnsicGF0aHMiOnsiLyovdXNlcnMvKioiOnt9LCIvKi9jb252ZXJzYXRpb25zLyoqIjp7fSwiLyovc2Vzc2lvbnMvKioiOnt9LCIvKi9kZXZpY2VzLyoqIjp7fSwiLyovaW1hZ2UvKioiOnt9LCIvKi9tZWRpYS8qKiI6e30sIi8qL2FwcGxpY2F0aW9ucy8qKiI6e30sIi8qL3B1c2gvKioiOnt9LCIvKi9rbm9ja2luZy8qKiI6e319fSwiYXBwbGljYXRpb25faWQiOiI2MWZkMTg0OS0yODBkLTQ3MjItODcxMi0xY2M1OWFhNTI1MmIifQ.wjlQx1JY0DGF7xvZMv7i9-KSnYHCbuxBHLZYRMMS8UN_V1DeTGfgugqmK56Vy4oFGb3KPMfAW8t4uv69l3M6x7vITEq7L3SsGljM_PSJgjPWQbrLKZuO8UloBwAV3G2xAdUX_KmYABMP7ABFC9X9rkpJEdyemi2LTdFrH7e1hKvTgbM38Oqehd17lGqcuBFevu2ZssiejfExv8cdhkEN4sJ2UjW0Za8QqQqjPg0iFZ-ENsSbdiC6ORimaRkT9yGNfsfN55nQHAsFItA-ddFfLb_4h_oT4gjS53pDHCEH-MzgCtj1ynEXdVt0LP23XHeMsEdP2Ym87niSok5AqlfPtQ' \
+     -H 'Content-Type: application/json' \
+     -d $'{
+  "name": "old_chat",
+  "display_name": "Old School Chat Room"
+}'

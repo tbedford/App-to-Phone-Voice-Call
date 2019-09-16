@@ -2,14 +2,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const port = 3000; // change port number as required
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/webhooks/answer', (req, res) => {
     console.log("Answer:");
     console.log(req.query);
-    console.log(req.query.to);
     var dest_number = req.query.to;
     const ncco = [{
         "action": "connect",
@@ -27,4 +27,4 @@ app.post('/webhooks/event', (req, res) => {
     res.status(200).end();
 });
 
-app.listen(9000)
+app.listen(port, () => console.log(`Server listening on port ${port}!`));
