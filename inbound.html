@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="./node_modules/nexmo-client/dist/nexmoClient.js"></script>
+</head>
+<body>
+
+  <h1>Inbound PSTN phone call</h1>
+  <p id="console">Lines are open for calls...</p>
+  <br/>
+  <button id="button">Answer</button>
+
+  <script>
+
+    function errorLogger(error) {
+        console.log(error);
+    }
+
+    const AGENT_JWT = "dshkdhsk";
+
+    new NexmoClient({ debug: false })
+    .login(AGENT_JWT)
+    .then(app => {
+
+        let btn = document.getElementById('button');
+        let con = document.getElementById('console');
+    
+        app.on("member:call", (member, call) => {
+            con.innerHTML = "Inbound call - click to answer..."
+            btn.addEventListener('click', (event) => {
+                event.preventDefault();
+                call.answer();
+            });
+        });
+  
+        app.on("call:status:changed", (call) => {
+          console.log("DEBUG: CALL STATUS: ", call.status);
+          con.innerHTML = call.status;
+        });        
+    })
+    .catch(errorLogger);
+  </script>
+</body>
+</html>

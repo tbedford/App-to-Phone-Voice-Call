@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="./node_modules/nexmo-client/dist/nexmoClient.js"></script>
+</head>
+<body>
+  <h1>Inbound PSTN phone call</h1>
+
+  <script>
+
+    function errorLogger(error) {
+        console.log(error);
+    }
+
+    const AGENT_JWT = "hfdjhfjkd";
+
+    let textarea = document.createElement("TEXTAREA");
+    document.body.appendChild(textarea);
+    
+    new NexmoClient({ debug: true })
+    .login(AGENT_JWT)
+    .then(app => {
+        app.on("member:call", (member, call) => {
+            console.log("DEBUG: ---> FROM: ", call.from);
+            console.log("DEBUG: ---> TO: ", call.to);
+            node = document.createTextNode("Inbound call...");            
+            textarea.appendChild(node)
+            call.answer();
+        });
+    })
+.catch(errorLogger);
+  </script>
+</body>
+</html>
