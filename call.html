@@ -24,15 +24,15 @@ function errorLogger(error) {
 }
 
 new NexmoClient({ debug: true })
-  .login(USER_JWT)
-  .then(app => {
+.login(USER_JWT)
+.then(app => {
     callPhoneForm.addEventListener("submit", event => {
-      event.preventDefault();
-      let number = callPhoneForm.children.phonenumber.value;
-      app.callServer(number);
+        event.preventDefault();
+        let number = callPhoneForm.children.phonenumber.value;
+        app.callServer(number);
     });
-  })
-  .catch(errorLogger);
+})
+.catch(errorLogger);
   </script>
 </body>
 

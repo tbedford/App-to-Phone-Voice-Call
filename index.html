@@ -47,12 +47,12 @@
 
       setupUserEvents() {
         this.callPhoneForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    console.log("**DEBUG:** about to make call")
-    var number = this.callPhoneForm.children.phonenumber.value
-    console.log("NUMBER: ", number)
-    this.app.callServer(number);
-    console.log("**DEBUG:** call returned")
+            event.preventDefault();
+            console.log("**DEBUG:** about to make call")
+            var number = this.callPhoneForm.children.phonenumber.value
+            console.log("NUMBER: ", number)
+            this.app.callServer(number);
+            console.log("**DEBUG:** call returned")
         })
       }
 
