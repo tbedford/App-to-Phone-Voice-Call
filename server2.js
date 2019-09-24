@@ -30,7 +30,6 @@ const ncco = [
 app.get('/webhooks/answer', (req, res) => {
     console.log("Answer:");
     console.log(req.query);
-    var dest_number = req.query.to;
     res.json(ncco);
 });
 

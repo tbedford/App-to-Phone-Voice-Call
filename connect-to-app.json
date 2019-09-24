@@ -1,0 +1,19 @@
+[
+  {
+    "action": "talk",
+    "text": "Please wait while we connect you to an agent"
+  },
+  {
+    "action": "connect",
+    "eventUrl": [
+      "https://tbedford.ngrok.io/webhooks/rtcevent"
+    ],
+    "from": "442039061241",
+    "endpoint": [
+      {
+        "type": "app",
+        "user": "tonyb"
+      }
+    ]
+  }
+]
